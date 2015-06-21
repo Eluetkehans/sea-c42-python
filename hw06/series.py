@@ -51,6 +51,12 @@ def sum_series(n, num1=0, num2=1):
 
 
 if __name__ == "__main__":
+    # Test to make sure the fibonacci function returns the eigth number
+    # of the series correctly.
     assert fibonacci(8) == 13
+    # Test to make sure the lucas function returns the eigth number
+    # of the series correctly.
     assert lucas(8) == 29
+    # Test to make sure the sum_series function returns the eigth number
+    # of the series correctly.
     assert sum_series(8, 5, 6) == 118
