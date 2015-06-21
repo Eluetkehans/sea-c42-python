@@ -5,8 +5,10 @@ def fibonacci(n):
     nth = 0
     if(n <= 1):
         return first_num
+    elif(n == 2):
+        return second_num
     else:
-        for i in range(n - 1):
+        for i in range(n - 2):
             nth = first_num + second_num
             first_num = second_num
             second_num = nth
@@ -31,6 +33,8 @@ def lucas(n):
 
 
 def sum_series(n, num1=0, num2=1):
+    """Returns the nth value of user provided sum strings. Defaults to
+     Fibonacci."""
     first_num = num1
     second_num = num2
     nth = 0
@@ -45,5 +49,8 @@ def sum_series(n, num1=0, num2=1):
             second_num = nth
     return nth
 
-nth = lucas(int(input("number: ")))
-print(nth)
+
+if __name__ == "__main__":
+    assert fibonacci(8) == 13
+    assert lucas(8) == 29
+    assert sum_series(8, 5, 6) == 118
