@@ -6,12 +6,11 @@ alphabet_list = list(alphabet)
 
 # Copy and paste the cipher list from your partner below,
 # instead of the empty list.
-cipher_list = ['v', 'w', 'u', 'q', 'k', 'm', 'g', 'z', 'l', 'n', 'e', ' ', 'd', 'b', 'x', 'y', 'i', 't', 'f', 'h', 'r', 'c', 'j', 'a', 'p', 's', 'o']
-
+cipher_list = ['p', 'r', 't', 'h', 'a', 'w', 'k', 'd', 'v', 'f', 'u', ' ', 'b', 'z', 's', 'l', 'c', 'j', 'y', 'i', 'e', 'g', 'm', 'x', 'o', 'n', 'q']
 
 # copy and paste the cipher_text from your partner in slack
 # and assign it to the variable new_cipher_text
-new_cipher_text = "jzvhozvfoqvhkfovbqofrbqvpfowrhouvbbxhowkokvhkb"
+new_cipher_text = "mdpiqipyiayqraiiajqidpzqviqyba  y"
 
 decrypt_text = ""
 

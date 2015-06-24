@@ -8,9 +8,9 @@ alphabet_list = list(alphabet)
 cipher_list = list(alphabet_list)
 
 # This should be a list in order
-print(cipher_list)
+# print(cipher_list)
 
-message_text = "what has dates and sundays but cannot be eaten"
+message_text = "poor men have it rich men need it if you eat it you will die"
 
 random.shuffle(cipher_list)
 
