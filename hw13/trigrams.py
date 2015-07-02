@@ -5,20 +5,28 @@ import random
 tridic = {}
 
 # Get our text file
-f = file.open("sherlock-small.txt", "r")
+f = open("sherlock-small.txt", "r")
 
 # Store the text in a variable
-text = f.getlines()
+text = f.readlines()
 
-# Split the text into individual words
-text.split()
+# Close the file, we have what we need
+f.close()
+
+# Get the text into a single string
+single_line = " ".join(text)
+
+# Take out the white space
+words = single_line.split()
 
 
 # Create dictionary of trigrams
-def filldic(text):
+def filldic(words):
     """Fills the trigram dictionary with trigrams"""
-    for word in range(len(text) - 2):
+    for word in range(len(words) - 2):
         if(tridic[word, word + 1] in tridic):
             tridic[(word, word + 1)].append(word + 3)
         else:
             tridic[(word, word + 1)] = [word + 3]
+
+print(words)

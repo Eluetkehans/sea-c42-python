@@ -84,8 +84,8 @@ def report():
 while True:
     # Intro message
     print('Welcome to the mailroom, beautiful! Would you like to do?')
-    print('-Write a thank you (ty)')
-    print('-Veiw a report (report)')
+    print('-Send a (t)hank you')
+    print('-Create a (r)eport')
     print('-Quit the program (quit)')
 
     # User input stored
@@ -93,7 +93,7 @@ while True:
 
     if(answer == 'quit' or answer == 'q'):
         break
-    elif(answer == 'thank you' or answer == 'ty'):
+    elif(answer == 'thank you' or answer == 't'):
         ty()
     elif(answer == 'report' or answer == 'r'):
         report()
