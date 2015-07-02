@@ -24,9 +24,11 @@ words = single_line.split()
 def filldic(words):
     """Fills the trigram dictionary with trigrams"""
     for word in range(len(words) - 2):
-        if(tridic[word, word + 1] in tridic):
-            tridic[(word, word + 1)].append(word + 3)
+        if(tridic[words[word], words[word + 1]] in tridic):
+            tridic[(words[word], words[word + 1])].append(words[word + 3])
         else:
-            tridic[(word, word + 1)] = [word + 3]
+            tridic[(words[word], words[word + 1])] = [words[word + 3]]
 
-print(words)
+
+filldic(words)
+print(tridic)
