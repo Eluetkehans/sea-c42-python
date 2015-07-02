@@ -1,0 +1,2 @@
+# Import random
+import random
