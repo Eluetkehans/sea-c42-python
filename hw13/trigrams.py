@@ -23,12 +23,17 @@ words = single_line.split()
 # Create dictionary of trigrams
 def filldic(words):
     """Fills the trigram dictionary with trigrams"""
-    for word in range(len(words) - 2):
-        if(tridic[words[word], words[word + 1]] in tridic):
-            tridic[(words[word], words[word + 1])].append(words[word + 3])
-        else:
-            tridic[(words[word], words[word + 1])] = [words[word + 3]]
+    # Loops as long as there are more the two words left.
+    key = tuple()
+    for i in range(len(words) - 2):
+        key = tuple(words[i:i + 2])
+        third = words[i + 2]
+        tridic.setdefault(key, []).append(third)
 
 
+def build_story(dict):
+    """Returns a brand new story generated from the input"""
+    for i in range(100):
+        
 filldic(words)
 print(tridic)
