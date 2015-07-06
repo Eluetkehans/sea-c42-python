@@ -33,7 +33,24 @@ def filldic(words):
 
 def build_story(dict):
     """Returns a brand new story generated from the input"""
-    for i in range(100):
-        
+
+    story = list(random.choice(tridic.keys()))
+    for i in range(10):
+        # Find the last two words.
+        last_two = tuple(story[-2], story[-1])
+
+        # If the last two words are a key, then append their value
+        if (last_two in tridic):
+            story.extend(tridic[last_two])
+        # If the last two words are not a key, then put a period, and
+        # Add a new random key.
+        else:
+            story[-1] == story[-1] + "."
+            story.extend(list(random.choice(tridic.keys())))
+
+
+# Fill the dictionary
 filldic(words)
-print(tridic)
+
+# Print out the story
+print(build_story(filldic))
