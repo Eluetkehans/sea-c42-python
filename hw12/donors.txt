@@ -1,0 +1,1 @@
+'Phil Harmonic': [70.02, 33.1, 12.00], 'Dick Tator' : [13.23, 12.12, 10.56], 'May Flower' : [66.6, 99.9], 'Perd Haply' : [46, 12, 1], 'Count von Fizzbuzz' : [1000, 120, .01]

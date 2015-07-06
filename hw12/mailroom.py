@@ -1,12 +1,10 @@
 # To sort lists by one item in the list
 from operator import itemgetter
 
-# List of donors grouped with their donations
-donors = [
-         ['Phil Harmonic', [70.02, 33.1, 12.00]],
-         ['Dick Tator', [13.23, 12.12, 10.56]], ['May Flower', [66.6, 99.9]],
-         ['Perd Haply', [46, 12, 1]], ['Count von Fizzbuzz', [1000, 120, .01]]
-]
+donors = {'Phil Harmonic': [70.02, 33.1, 12.00],
+          'Dick Tator': [13.23, 12.12, 10.56],
+          'May Flower': [66.6, 99.9], 'Perd Haply': [46, 12, 1],
+          'Count von Fizzbuzz': [1000, 120, .01]}
 
 
 # Thank you function
@@ -21,8 +19,8 @@ def ty():
         if(response == 'quit' or response == 'q'):
             break
         elif(response == 'list' or response == 'l'):
-            for i in range(len(donors)):
-                print(donors[i][0])
+            for key in donors.keys():
+                print(donors[key])
         elif(response == ''):
             print('Instead of nothing, try typing something.')
         else:
