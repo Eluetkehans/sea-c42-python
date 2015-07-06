@@ -52,13 +52,7 @@ def report():
     total_donated = 0
     average_donation = 0
     number_donations = 0
-    complete_donation_info = []
 
-    # Create a list of donor names
-    for key in donors:
-        complete_donation_info.append(key)
-
-    # Average out the donations
     for key in donors:
         total_donated = 0
         average_donation = 0
@@ -68,17 +62,14 @@ def report():
             number_donations = number_donations + 1
         # Calculate average
         average_donation = float(total_donated / number_donations)
-        complete_donation_info[key].append(total_donated)
-        complete_donation_info[key].append(average_donation)
-        complete_donation_info[key].append(number_donations)
-    # the total donated should be the third item of each sub list
-    complete_donation_info.sort(key=itemgetter(1), reverse=True)
-    # Convert to tuples for easy printing
-    [(x,) for x in complete_donation_info]
+        donors[key].append(total_donated)
+        donors[key].append(average_donation)
+        donors[key].append(number_donations)
+    
     print('Donor Name \t\tTotal Donated \t\tNumber of Donations \t\t'
           'Average donation')
-    for i in range(len(complete_donation_info)):
-        print('{0} \t\t{1} \t\t{3} \t\t{2}'.format(*complete_donation_info[i]))
+    for key in donors:
+        print('{key} \t\t{1} \t\t{3} \t\t{2}'.format(*donors[key]))
 
 
 # Main program loop
