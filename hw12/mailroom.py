@@ -25,17 +25,16 @@ def ty():
             print('Instead of nothing, try typing something.')
         else:
             name = response
-            for i in range(len(donors)):
-                if(name == donors[i][0]):
-                    print("How much did they donate?")
-                    amount = float(input('-> '))
-                    donors[i][1].append(amount)
-                    print(note(name, amount))
-            else:
-                donors.append([name, []])
+            if(name in donors):
                 print("How much did they donate?")
                 amount = float(input('-> '))
-                donors[-1][1].append(amount)
+                donors[name].extend(amount)
+                print(note(name, amount))
+            else:
+                donors[name] = []
+                print("How much did they donate?")
+                amount = float(input('-> '))
+                donors[name].extend(amount)
                 print(note(name, amount))
 
 
