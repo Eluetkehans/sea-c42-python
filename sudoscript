@@ -1,0 +1,60 @@
+import needed libraries
+
+donor_name = set donor full name list
+past_don = set donor past donation amount list
+done = False
+
+
+def thankyou function:
+    prompt donor name
+    if user input == quit:
+        break
+    elif user input == list:
+        print donor_name
+    elif user input in donor_name[]:
+        while ! done
+            prompt donation amount
+            if user input type == float:
+                append float to past_don[name]
+                print("thank you %s for your donation of %s".format(name, donation))
+                break
+            elif user input == quit
+                break
+    else:
+        append donor_name user input
+        append [] to past_don
+
+
+def report function:
+    don_sort = list(donor_name)
+    don_amount_sort = list(don_amount)
+    amount_ave = []
+
+    ind_count = -1
+    for ind in don_sort:
+        
+        if don_sort[ind] < don_sort[ind + 1]:
+            ind_count += 1 
+
+    index don_sort value in don_amount
+    sort don_sort by index of don_amount
+
+
+    for donor in don_sort:
+        print(donor + end="\t")
+        for idx, don in enumerate(don_amount):
+            
+        print(amountTotal + end="\t")
+        print(total + end="\t")
+        print(amountTotal / total)
+
+while not done:
+    prompt if want ty or rep
+    if user input == ty:
+        ty()
+    elif user input == rep:
+        rep()
+    elif user input == quit:
+        done = True
+    else:
+        "not an option. Ty, rep or quit"

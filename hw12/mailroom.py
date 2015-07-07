@@ -28,13 +28,13 @@ def ty():
             if(name in donors):
                 print("How much did they donate?")
                 amount = float(input('-> '))
-                donors[name].extend(amount)
+                donors[name].append(amount)
                 print(note(name, amount))
             else:
                 donors[name] = []
                 print("How much did they donate?")
                 amount = float(input('-> '))
-                donors[name].extend(amount)
+                donors[name].append(amount)
                 print(note(name, amount))
 
 
