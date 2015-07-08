@@ -25,11 +25,11 @@ def render(page, filename):
    f = io.StringIO()
    page.render(f)
 
-   f.reset()
+   #f.reset()
 
    print(f.read())
 
-   f.reset()
+   #f.reset()
    codecs.open(filename, 'w', encoding="utf-8").write( f.read() )
 
 
