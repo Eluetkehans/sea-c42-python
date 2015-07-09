@@ -43,7 +43,7 @@ class Html(Element):
 
 class Body(Element):
 
-    def __init__(self, name="", content=""):
+    def __init__(self, content="", name=""):
         self.name = name
         indented_content = add_indent(content)
         self.content = "<body>\n{}\n<\\body>\n".format(indented_content)
@@ -54,7 +54,7 @@ class Body(Element):
 
 class P(Element):
 
-    def __init__(self, name="", content=""):
+    def __init__(self, content="", name=""):
         self.name = name
         indented_content = add_indent(content)
         self.content = "<p>\n{}\n<\p>\n".format(indented_content)
@@ -66,6 +66,7 @@ class P(Element):
 def add_indent(content):
     """Adds four blank spaces infront of every line of a given string."""
     lines = content.split("\n")
+    ind_lines = []
     for line in lines:
-        line = "    " + line
-    return "".join(lines)
+        ind_lines.append("    " + line)
+    return "".join(ind_lines)
