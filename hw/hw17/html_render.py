@@ -15,14 +15,11 @@ class Element(object):
         self.content = content
 
     def append(self, new_text):
-        self.content += new_text
+        self.content += str(new_text)
 
-    def render(self, file_name, ind=""):
-        indent = ind
-        indent += self.content
-        write_out = open(file_name, "w")
-        write_out.write(indent)
-        write_out.close()
+    def render(self, file_out, indent=""):
+        indented_content = "<>\n{}\n<\>\n".format(add_indent(self.content))
+        file_out.write(indented_content)
 
 
 class Html(Element):
@@ -33,12 +30,10 @@ class Html(Element):
         self.content += "<html>\n"
         self.content += content
 
-    def render(self, file_name, ind=""):
+    def render(self, file_out, ind=""):
         ind += self.content
         ind += "</html>\n"
-        write_out = open(file_name, "w")
-        write_out.write(ind)
-        write_out.close()
+        file_out.write(ind)
 
 
 class Body(Element):
