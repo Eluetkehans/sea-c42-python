@@ -10,52 +10,56 @@ Python class example.
 # Fill it all in here.
 class Element(object):
 
-    def __init__(self, name="", content=""):
+
+    def __init__(self, content="", name=""):
         self.name = name
+        self.children = [content] if content else []
         self.content = content
 
-    def append(self, new_text):
-        self.content += str(new_text)
+    def __str__(self):
+        indented = add_indent(self.content)
+        return "<{}>\n{}\n<\{}>\n".format(self.name, indented, self.name)
 
-    def render(self, file_out, indent=""):
-        indented_content = "<>\n{}\n<\>\n".format(add_indent(self.content))
-        file_out.write(indented_content)
+    def append(self, new_child):
+        self.children.append(new_child)
+
+    def render(self, file_out, indent="    "):
+        file_out.write("{}<{}>\n".format(indent, self.name))
+        for child in self.children:
+            if(type(child) == str):
+                # Add new content string without rendering
+                file_out.write(indent + "    " + child + "\n")
+            else:
+                # Add new child node, by recursively rendering
+                child.render(file_out, indent + "    ")
+        file_out.write("%s</%s>\n" % (indent, self.name))
+
 
 
 class Html(Element):
 
     def __init__(self, name="", content=""):
-        self.name = name
-        self.content = "<!DOCTYPE html>\n"
-        self.content += "<html>\n"
-        self.content += content
+        Element.__init__(self, name="html", content="")
 
-    def render(self, file_out, ind=""):
-        ind += self.content
-        ind += "</html>\n"
-        file_out.write(ind)
+    def __str__(self):
+        indented = add_indent(self.content)
+        return "<!DOCTYPE html>\n<{}>\n{}\n<\{}>\n".format(self.name, indented, self.name)
+
+    def render(self, file_out, indent=""):
+        file_out.write("<!DOCTYPE html>\n")
+        Element.render(self, file_out, "")
 
 
 class Body(Element):
 
-    def __init__(self, content="", name=""):
-        self.name = name
-        indented_content = add_indent(content)
-        self.content = "<body>\n{}\n<\\body>\n".format(indented_content)
-
-    def __str__(self):
-        return self.content
+    def __init__(self, content=""):
+        Element.__init__(self, name="body", content=content)
 
 
 class P(Element):
 
-    def __init__(self, content="", name=""):
-        self.name = name
-        indented_content = add_indent(content)
-        self.content = "<p>\n{}\n<\p>\n".format(indented_content)
-
-    def __str__(self):
-        return self.content
+    def __init__(self, content=""):
+        Element.__init__(self, name="p", content=content)
 
 
 def add_indent(content):
@@ -64,4 +68,4 @@ def add_indent(content):
     ind_lines = []
     for line in lines:
         ind_lines.append("    " + line)
-    return "".join(ind_lines)
+    return "\n".join(ind_lines)
