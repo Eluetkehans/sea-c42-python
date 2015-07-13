@@ -1,10 +1,7 @@
-# To sort lists by one item in the list
-from operator import itemgetter
-
 donors = {'Phil Harmonic': [70.02, 33.1, 12.00],
           'Dick Tator': [13.23, 12.12, 10.56],
           'May Flower': [66.6, 99.9], 'Perd Haply': [46, 12, 1],
-          'Count von Fizzbuzz': [1000, 120, .01]}
+          'Count von Fizz': [1000, 120, .01]}
 
 
 # Thank you function
@@ -49,27 +46,26 @@ def note(name, amount):
 # Report generator
 def report():
     """Creates a report of all donors and the amount of their donations"""
+    sorted_donors = sorted(donors.items(), key=lambda val: sum(val[1]),
+                           reverse=True)
     total_donated = 0
     average_donation = 0
     number_donations = 0
 
-    for key in donors:
-        total_donated = 0
-        average_donation = 0
-        number_donations = 0
-        for donation in range(len(donors[key])):
-            total_donated = total_donated + donors[key][donation]
-            number_donations = number_donations + 1
-        # Calculate average
-        average_donation = float(total_donated / number_donations)
-        donors[key].append(total_donated)
-        donors[key].append(average_donation)
-        donors[key].append(number_donations)
-    
-    print('Donor Name \t\tTotal Donated \t\tNumber of Donations \t\t'
+    print('Donor Name\t\tTotal Donated\t\tNumber of Donations\t'
           'Average donation')
-    for key in donors:
-        print('{key} \t\t{1} \t\t{3} \t\t{2}'.format(*donors[key]))
+
+    for i in range(len(sorted_donors)):
+        # Sum the list of donations located at index one for each donor
+        total_donated = sum(sorted_donors[i][1])
+        number_donations = len(sorted_donors[i][1])
+        average_donation = total_donated / number_donations
+
+        print('{}\t\t{}\t\t\t{}\t\t\t{}'.format(sorted_donors[i][0],
+                                                total_donated,
+                                                number_donations,
+                                                average_donation)
+              )
 
 
 # Main program loop
