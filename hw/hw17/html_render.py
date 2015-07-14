@@ -21,8 +21,8 @@ class Element(object):
 
     def render(self, file_out, indent="    "):
         if len(self.style) >= 1:
-            file_out.write("{}<{}{}>\n".format(indent, self.name, " " +
-                                               self.style))
+            file_out.write("{}<{}{}>\n".format(indent, self.name, ' style="' +
+                                               self.style + '"'))
         else:
             file_out.write("{}<{}>\n".format(indent, self.name))
         for child in self.children:
@@ -66,7 +66,7 @@ class Head(Element):
 class OneLineTag(Element):
 
     def __init__(self, content="", style="", name=""):
-        Element.__init__(self, name="", content=content, style=style)
+        Element.__init__(self, name=name, content=content, style=style)
 
     # This is exactly the same as Element.render, except some line breaks
     # Had to be taken out.
@@ -86,3 +86,24 @@ class Title(OneLineTag):
 
     def __init__(self, content="", style=""):
         OneLineTag.__init__(self, name="title", content=content, style=style)
+
+
+class SelfClosingTag(Element):
+
+    def __init__(self, content="", style="", name=""):
+        Element.__init__(self, name=name, content=content, style=style)
+
+    def render(self, file_out, indent="    "):
+        file_out.write("{}<{} />\n".format(indent, self.name))
+
+
+class Hr(SelfClosingTag):
+
+    def __init__(self, content="", style=""):
+        SelfClosingTag.__init__(self, name="hr", content=content, style=style)
+
+
+class Br(SelfClosingTag):
+
+    def __init__(self, content="", style=""):
+        SelfClosingTag.__init__(self, name="br", content=content, style=style)
