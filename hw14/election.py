@@ -6,6 +6,7 @@ import csv
 import os
 import time
 
+
 def read_csv(path):
     """
     Reads the CSV file at path, and returns a list of rows. Each row is a
@@ -17,9 +18,9 @@ def read_csv(path):
     return output
 
 
-################################################################################
+###############################################################################
 # Problem 1: State edges
-################################################################################
+###############################################################################
 
 def row_to_edge(row):
     """
@@ -28,81 +29,125 @@ def row_to_edge(row):
     """
     return float(row["Dem"]) - float(row["Rep"])
 
+
 def state_edges(election_result_rows):
     """
     Given a list of *ElectionDataRow*s, returns *StateEdge*s.
     The input list has no duplicate *States*;
     that is, each *State* is represented at most once in the input list.
     """
-    #TODO: Implement this function
-    pass
+    d = {}
+    for row in election_result_rows:
+        d[row['State']] = row_to_edge(row)
+    return d
 
 
-################################################################################
+###############################################################################
 # Problem 2: Find the most recent poll row
-################################################################################
+###############################################################################
 
 def earlier_date(date1, date2):
     """
     Given two dates as strings (formatted like "Oct 06 2012"), returns True if
     date1 is before date2.
     """
-    return (time.strptime(date1, "%b %d %Y") < time.strptime(date2, "%b %d %Y"))
+    return (time.strptime(date1, "%b %d %Y") <
+            time.strptime(date2, "%b %d %Y"))
+
 
 def most_recent_poll_row(poll_rows, pollster, state):
     """
     Given a list of *PollDataRow*s, returns the most recent row with the
     specified *Pollster* and *State*. If no such row exists, returns None.
     """
-    #TODO: Implement this function
-    pass
+    most_recent_pollster = ""
+    # As close as I can get to 0 for a date
+    most_recent_date = "Jan 01 1000"
+
+    # Look through the list of poll_data_rows
+    for row in poll_rows:
+        if(row['State'] == state and row['Pollster'] == pollster and not
+           earlier_date(row["Date"], most_recent_date)):
+            most_recent_date = row["Date"]
+            most_recent_pollster = row["Pollster"]
+
+    # Check if most_recent_pollster is empty
+    if(len(most_recent_pollster) < 1):
+        return None
+    else:
+        for row in poll_rows:
+            # Find the *row* that is most recent and return it
+            if(row["Date"] == most_recent_date and
+               row["Pollster"] == most_recent_pollster):
+                return row
 
 
-################################################################################
+###############################################################################
 # Problem 3: Pollster predictions
-################################################################################
+###############################################################################
 
 def unique_column_values(rows, column_name):
     """
     Given a list of rows and the name of a column (a string),
     returns a set containing all values in that column.
     """
-    #TODO: Implement this function
-    pass
+
+    d = {column_name: []}
+
+    for row in rows:
+        if(row[column_name] not in d[column_name]):
+            d[column_name].append(row[column_name])
+
+    return set(d[column_name])
+
 
 def pollster_predictions(poll_rows):
     """
     Given a list of *PollDataRow*s, returns *PollsterPredictions*.
     For a given pollster, uses only the most recent poll for a state.
     """
-    #TODO: Implement this function
-    pass
+    d = {}
+    for row in poll_rows:
+        if(row['Pollster'] not in d):
+            d[row['Pollster']] = {}
+
+    # Fill dictionary in this format {pollster: {state: state_edge}}
+    for row in poll_rows:
+        if(most_recent_poll_row(poll_rows, row["Pollster"], row["State"]) ==
+           row):
+            # state_edges expects the dictionaries to come inside of a list
+            fix_row = [row]
+            d[row['Pollster']].update(state_edges(fix_row))
+
+    return d
 
 
-################################################################################
+###############################################################################
 # Problem 4: Pollster errors
-################################################################################
+###############################################################################
 
 def average_error(state_edges_predicted, state_edges_actual):
     """
     Given predicted *StateEdges* and actual *StateEdges*, returns
     the average error of the prediction.
     """
-    #TODO: Implement this function
+
+    """average_error = state_edges_predicted / state_edges_actual
+    return average_error"""
     pass
+
 
 def pollster_errors(pollster_predictions, state_edges_actual):
     """
     Given *PollsterPredictions* and actual *StateEdges*,
     retuns *PollsterErrors*.
     """
-    #TODO: Implement this function
     pass
 
 
-################################################################################
+###############################################################################
 # Problem 5: Pivot a nested dictionary
-################################################################################
+###############################################################################
 
 def pivot_nested_dict(nested_dict):
     """
@@ -119,13 +164,13 @@ def pivot_nested_dict(nested_dict):
                 'x': {'a': 1, 'b': 3},
                 'z': {'b': 4} }
     """
-     #TODO: Implement this function
+    #TODO: Implement this function
     pass
 
 
-################################################################################
+###############################################################################
 # Problem 6: Average the edges in a single state
-################################################################################
+###############################################################################
 
 def average_error_to_weight(error):
     """
@@ -176,9 +221,9 @@ def average_edge(pollster_edges, pollster_errors):
     pass
 
 
-################################################################################
+###############################################################################
 # Problem 7: Predict the 2012 election
-################################################################################
+###############################################################################
 
 def predict_state_edges(pollster_predictions, pollster_errors):
     """
@@ -190,9 +235,9 @@ def predict_state_edges(pollster_predictions, pollster_errors):
     pass
 
 
-################################################################################
+###############################################################################
 # Electoral College, Main Function, etc.
-################################################################################
+###############################################################################
 
 def electoral_college_outcome(ec_rows, state_edges):
     """
