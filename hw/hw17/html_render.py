@@ -63,3 +63,16 @@ class Title(Element):
 
     def __init__(self, content=""):
         Element.__init__(self, name="title", content=content)
+
+    # This is exactly the same as Element.render, except some line breaks
+    # Had to be taken out.
+    def render(self, file_out, indent="    "):
+        file_out.write("{}<{}>".format(indent, self.name))
+        for child in self.children:
+            if(type(child) == str):
+                # Add new content string without rendering
+                file_out.write(child)
+            else:
+                # Add new child node, by recursively rendering
+                child.render(file_out, indent)
+        file_out.write("</%s>\n" % (self.name))
