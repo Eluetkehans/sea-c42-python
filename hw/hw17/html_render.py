@@ -11,7 +11,7 @@ Python class example.
 class Element(object):
 
     def __init__(self, content="", name="", style=""):
-        self.style = style
+        self.style = ' style="{}"'.format(style)
         self.content = content
         self.name = name
         self.children = [content] if content else []
@@ -21,8 +21,7 @@ class Element(object):
 
     def render(self, file_out, indent="    "):
         if len(self.style) >= 1:
-            file_out.write("{}<{}{}>\n".format(indent, self.name, ' style="' +
-                                               self.style + '"'))
+            file_out.write("{}<{}{}>\n".format(indent, self.name, self.style))
         else:
             file_out.write("{}<{}>\n".format(indent, self.name))
         for child in self.children:
@@ -107,3 +106,10 @@ class Br(SelfClosingTag):
 
     def __init__(self, content="", style=""):
         SelfClosingTag.__init__(self, name="br", content=content, style=style)
+
+
+class A(Element):
+
+    def __init__(self, link, content=""):
+        Element.__init__(self, content=content, name="a",
+                         style=' href="{}"'.format(link))
