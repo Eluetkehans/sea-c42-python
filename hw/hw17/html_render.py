@@ -10,15 +10,10 @@ Python class example.
 # Fill it all in here.
 class Element(object):
 
-
     def __init__(self, content="", name=""):
         self.name = name
         self.children = [content] if content else []
         self.content = content
-
-    def __str__(self):
-        indented = add_indent(self.content)
-        return "<{}>\n{}\n<\{}>\n".format(self.name, indented, self.name)
 
     def append(self, new_child):
         self.children.append(new_child)
@@ -41,10 +36,6 @@ class Html(Element):
     def __init__(self, name="", content=""):
         Element.__init__(self, name="html", content="")
 
-    def __str__(self):
-        indented = add_indent(self.content)
-        return "<!DOCTYPE html>\n<{}>\n{}\n<\{}>\n".format(self.name, indented, self.name)
-
     def render(self, file_out, indent=""):
         file_out.write("<!DOCTYPE html>\n")
         Element.render(self, file_out, "")
@@ -62,10 +53,13 @@ class P(Element):
         Element.__init__(self, name="p", content=content)
 
 
-def add_indent(content):
-    """Adds four blank spaces infront of every line of a given string."""
-    lines = content.split("\n")
-    ind_lines = []
-    for line in lines:
-        ind_lines.append("    " + line)
-    return "\n".join(ind_lines)
+class Head(Element):
+
+    def __init__(self, content=""):
+        Element.__init__(self, name="head", content=content)
+
+
+class Title(Element):
+
+    def __init__(self, content=""):
+        Element.__init__(self, name="title", content=content)
