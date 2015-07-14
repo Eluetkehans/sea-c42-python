@@ -10,16 +10,21 @@ Python class example.
 # Fill it all in here.
 class Element(object):
 
-    def __init__(self, content="", name=""):
+    def __init__(self, content="", name="", style=""):
+        self.style = style
+        self.content = content
         self.name = name
         self.children = [content] if content else []
-        self.content = content
 
     def append(self, new_child):
         self.children.append(new_child)
 
     def render(self, file_out, indent="    "):
-        file_out.write("{}<{}>\n".format(indent, self.name))
+        if len(self.style) >= 1:
+            file_out.write("{}<{}{}>\n".format(indent, self.name, " " +
+                                               self.style))
+        else:
+            file_out.write("{}<{}>\n".format(indent, self.name))
         for child in self.children:
             if(type(child) == str):
                 # Add new content string without rendering
@@ -30,11 +35,10 @@ class Element(object):
         file_out.write("%s</%s>\n" % (indent, self.name))
 
 
-
 class Html(Element):
 
-    def __init__(self, name="", content=""):
-        Element.__init__(self, name="html", content="")
+    def __init__(self, name="", content="", style=""):
+        Element.__init__(self, name="html", content="", style="")
 
     def render(self, file_out, indent=""):
         file_out.write("<!DOCTYPE html>\n")
@@ -43,26 +47,26 @@ class Html(Element):
 
 class Body(Element):
 
-    def __init__(self, content=""):
-        Element.__init__(self, name="body", content=content)
+    def __init__(self, content="", style=""):
+        Element.__init__(self, name="body", content=content, style=style)
 
 
 class P(Element):
 
-    def __init__(self, content=""):
-        Element.__init__(self, name="p", content=content)
+    def __init__(self, content="", style=""):
+        Element.__init__(self, name="p", content=content, style=style)
 
 
 class Head(Element):
 
-    def __init__(self, content=""):
-        Element.__init__(self, name="head", content=content)
+    def __init__(self, content="", style=""):
+        Element.__init__(self, name="head", content=content, style=style)
 
 
-class Title(Element):
+class OneLineTag(Element):
 
-    def __init__(self, content=""):
-        Element.__init__(self, name="title", content=content)
+    def __init__(self, content="", style="", name=""):
+        Element.__init__(self, name="", content=content, style=style)
 
     # This is exactly the same as Element.render, except some line breaks
     # Had to be taken out.
@@ -76,3 +80,9 @@ class Title(Element):
                 # Add new child node, by recursively rendering
                 child.render(file_out, indent)
         file_out.write("</%s>\n" % (self.name))
+
+
+class Title(OneLineTag):
+
+    def __init__(self, content="", style=""):
+        OneLineTag.__init__(self, name="title", content=content, style=style)
